@@ -1,0 +1,9 @@
+#!/bin/sh
+[ -n "${IPKG_INSTROOT:-}" ] && exit 0
+set -eu
+if [ ! -s /etc/openwrtstudio-original-theme ]; then
+ (umask 077; uci -q get luci.main.mediaurlbase > /etc/openwrtstudio-original-theme)
+fi
+uci -q set luci.themes.OpenWrtStudio=/luci-static/openwrtstudio
+uci commit luci
+exit 0
